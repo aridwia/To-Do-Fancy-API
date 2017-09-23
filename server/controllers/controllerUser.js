@@ -1,8 +1,10 @@
 const user = require('../models/User');
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
+var jwt = require('jsonwebtoken');
+require('dotenv').config()
 
-var createUser = (req,res) => {
+var signUp = (req,res) => {
   var hash = bcrypt.hashSync(req.body.password,salt)
   user.create({
     username: req.body.username,
@@ -56,4 +58,25 @@ var deleteUser = (req,res) => {
   })
 }
 
-module.exports = {createUser,getalluser,updateUser,deleteUser};
+var signIn = (req,res) => {
+  user.findOne({
+    username: 'aridwia'
+  })
+  .then(datauser => {
+    // console.log(datauser);
+    // res.send(datauser)
+    if(bcrypt.compareSync(req.body.password,datauser.password)){
+      var token = jwt.sign({
+        username: datauser.username,
+        fullname: datauser.fullname
+      },process.env.SECRET_TOKEN)
+      // res.send(datauser)
+    res.send({msg: "berhasil login",token: token})
+    }
+  })
+  .catch(err => {
+    res.send(err)
+  })
+
+}
+module.exports = {signUp,getalluser,updateUser,deleteUser,signIn};
