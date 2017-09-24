@@ -60,7 +60,7 @@ var deleteUser = (req,res) => {
 
 var signIn = (req,res) => {
   user.findOne({
-    username: 'aridwia'
+    username: req.body.username
   })
   .then(datauser => {
     // console.log(datauser);
@@ -68,11 +68,12 @@ var signIn = (req,res) => {
     if(bcrypt.compareSync(req.body.password,datauser.password)){
       var token = jwt.sign({
         username: datauser.username,
-        fullname: datauser.fullname
+        fullname: datauser.fullname,
+        id: datauser._id
       },process.env.SECRET_TOKEN)
       // res.send(datauser)
     res.send({msg: "berhasil login",token: token})
-    }
+  } else { res.send({msg: "password anda salah"})}
   })
   .catch(err => {
     res.send(err)

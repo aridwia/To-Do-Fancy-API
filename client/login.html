@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="js/fbsdk.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#login').on('submit',function(e){
+          e.preventDefault();
+
+          $.ajax({
+            method: 'post',
+            url: 'http://localhost:3000/users/signin',
+            data: {
+              username:
+              $('#login').find('input[name="username"]').val(),
+              password:
+              $('#login').find('input[name="password"]').val()
+            }
+          })
+          .done(function(data){
+            console.log('ini data', data);
+            if (data.msg == 'berhasil login') {
+              localStorage.setItem('accesstoken', data.token)
+              document.location.href="index.html"
+            } else if (data.msg == 'password anda salah') {
+              alert(data.msg)
+              document.location.href="login.html"
+              }
+          })
+        })
+      })
+    </script>
+    <title>halaman login</title>
+  </head>
+  <body>
+    <form id="login">
+      <span>Username</span><br>
+      <input type="text" name="username" placeholder="input your username"><br>
+      <span>Password</span><br>
+      <input type="password" name="password" placeholder="input your password"><br>
+      <button type="submit" name="buttonlogin">log in</button>
+    </form>
+  </body>
+</html>
