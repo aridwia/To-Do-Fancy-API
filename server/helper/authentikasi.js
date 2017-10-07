@@ -4,7 +4,6 @@ require('dotenv').config()
 var islogin = (req,res,next) => {
   jwt.verify(req.headers.token,process.env.SECRET_TOKEN,function(err,decoded){
     if(!err){
-      // res.send(decoded)
       req.id = decoded.id
       next()
     } else {

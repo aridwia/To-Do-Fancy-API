@@ -9,5 +9,10 @@ router.get('/', authentikasi.islogin, controllerTodo.getallTodo)
 router.put('/:id', authentikasi.islogin, controllerTodo.updateTodo)
 router.delete('/:id', authentikasi.islogin, controllerTodo.deleteTodo)
 
+// router.post('/',  controllerTodo.createTodo)
+// router.get('/',  controllerTodo.getallTodo)
+// router.put('/:id',  controllerTodo.updateTodo)
+// router.delete('/:id',  controllerTodo.deleteTodo)
+
 
 module.exports = router;

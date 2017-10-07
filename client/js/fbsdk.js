@@ -7,6 +7,8 @@
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
+      localStorage.setItem('fbaccesstoken', response.authResponse.accessToken)
+      // window.location.href="index.html"
       // Logged into your app and Facebook.
       testAPI();
     } else {
@@ -16,15 +18,28 @@
     }
   }
 
+  function FBlogin() {
+    FB.login(function(response){
+      console.log('fblogin response ',response)
+      if (response.authResponse) {
+        localStorage.setItem('fbaccesstoken', response.authResponse.accessToken)
+        window.location.href='index.html'
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    }, {scope: 'public_profile,email'});
+  }
+
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
+  //buat dapetin authorized sama unauthorized
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
     });
   }
-
+//FB itu object dari yang di bawah manggil sdk
   window.fbAsyncInit = function() {
   FB.init({
     appId      : '1595971680477286',
@@ -47,12 +62,14 @@
   // These three cases are handled in the callback function.
 
   FB.getLoginStatus(function(response) {
+    console.log('ini getloginstatus',response);
     statusChangeCallback(response);
   });
 
   };
 
   // Load the SDK asynchronously
+  //script yang di gunakan untuk memanggil sdk facebook nya function di bungkus gunanya agar saat di load langsung di jalan kan bagian bawah adalah mengirim parameter
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -65,7 +82,8 @@
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me', {fields:'name,email,id,gender'},function(response) {
+      console.log('response dari me', response);
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
@@ -104,3 +122,24 @@
 //     }
 //    });
 // }
+
+
+
+
+function FBLogout () {
+  FB.getLoginStatus(function(response) {
+    if(response.status === 'connected') {
+      var uid = response.authResponse.userID;
+      var accesstoken = response.authResponse.accesstoken;
+
+      FB.api('/'+uid+'/permissions', 'delete' , function(response){
+        localStorage.removeItem('fbaccesstoken')
+        document.location.href="login.html"
+      })
+    } else if (response.status == 'not_authorized') {
+      console.log('the user is logged in to Facebook but has no authenticated your app');
+    } else {
+      console.log('the user isn\'t logged in to facebook');
+    }
+  })
+}

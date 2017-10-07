@@ -2,14 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="js/fbsdk.js"></script>
-    <title>halaman index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"
+			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+			  crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>to-do-vue</title>
   </head>
   <body>
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button>
-    <div id="status">
-    </div>
-    <button id="fb-logout-button" type="button" name="fb-logout-button" onclick="FBLogout()">fb-logout</button>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
   </body>
 </html>

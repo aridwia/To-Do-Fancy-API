@@ -16,6 +16,7 @@ var createTodo = (req,res) => {
 
 var getallTodo = (req,res) => {
   todo.find({createdby: req.id})
+  // todo.find({})
   .then(alldata => {
     console.log(req.id);
     res.send(alldata)

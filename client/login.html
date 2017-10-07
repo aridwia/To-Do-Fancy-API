@@ -9,6 +9,8 @@
     <script src="js/fbsdk.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+        // if()
+
         $('#login').on('submit',function(e){
           e.preventDefault();
 
@@ -34,6 +36,7 @@
           })
         })
       })
+
     </script>
     <title>halaman login</title>
   </head>
@@ -45,5 +48,14 @@
       <input type="password" name="password" placeholder="input your password"><br>
       <button type="submit" name="buttonlogin">log in</button>
     </form>
+<!-- scope itu yang mau di ambil datanya -->
+    <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"> -->
+    <button id="login-btn" class="btn btn-primary" type="button" onclick="FBlogin()">
+      <i class="fa fa-facebook-official"></i> Login With Facebook
+    </button>
+    </fb:login-button>
+    <div id="status">
+    </div>
+
   </body>
 </html>

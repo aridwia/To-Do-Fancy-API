@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var cors = require('cors')
+var FB = require('fb');
 
 mongoose.connect('mongodb://localhost/todafancyapi',(err) => {
   if(err){
@@ -14,12 +15,10 @@ mongoose.connect('mongodb://localhost/todafancyapi',(err) => {
     console.log("database connected");
   }
 })
-
-var index = require('./routes/index');
-var users = require('./routes/users');
-var todo = require('./routes/todo');
-
 var app = express();
+app.use(cors())
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +31,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors())
+var index = require('./routes/index');
+var users = require('./routes/users');
+var todo = require('./routes/todo');
 
 app.use('/', index);
 app.use('/users', users);
