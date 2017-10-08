@@ -45,7 +45,7 @@ export default {
         fullname: this.user.fullname
       }
       // console.log(newUser)
-      axios.post('http://localhost:3000/users/signup', newUser)
+      axios.post('http://35.200.25.235/users/signup', newUser)
       .then(result => {
         this.$router.push('/')
         console.log(result);

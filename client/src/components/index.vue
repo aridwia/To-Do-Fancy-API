@@ -35,7 +35,7 @@ export default {
       var config = {
         headers: {'token': localStorage.getItem('tokenauth')}
       }
-      axios.get(`http://localhost:3000/todo`, config)
+      axios.get(`http://35.200.25.235/todo`, config)
       .then(result => {
         console.log(result.data)
         this.todo = result.data

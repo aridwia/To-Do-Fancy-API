@@ -82,7 +82,7 @@
                        </div><br><br>
                        <div class="rows">
                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal" v-on:click="edittodo">Update</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal" v-on:click="edittodo()">Update</button>
 
                        </div>
                     </div>
@@ -105,6 +105,7 @@ export default {
   props: ['datatodocomponent'],
   data () {
     return {
+      data: this.datatodocomponent,
       post: {title: '', content: ''},
       todo: [],
       todoedit: {title: '', content: ''},
@@ -124,10 +125,13 @@ export default {
       var config = {
         headers: {'token': localStorage.getItem('tokenauth')}
       }
-      axios.post(`http://localhost:3000/todo`, this.post, config)
+      var newpost = this.post
+      axios.post(`http://35.200.25.235/todo`, newpost, config)
       .then(newtodo => {
-        this.datatodocomponent.push(this.post)
-        console.log(newtodo)
+        this.datatodocomponent.push(newtodo)
+        this.post.title = ''
+        this.post.content = ''
+        console.log(this.datatodocomponent)
       })
       .catch(err => {
         console.log(err)
@@ -138,7 +142,7 @@ export default {
         headers: {'token': localStorage.getItem('tokenauth')}
       }
       console.log('ini id dari function', this.edit._id)
-      axios.put(`http://localhost:3000/todo/${this.edit._id}`, this.edit, config)
+      axios.put(`http://35.200.25.235/todo/${this.edit._id}`, this.edit, config)
       .then(dataedit => {
         console.log(dataedit)
       })
@@ -147,15 +151,15 @@ export default {
       })
     },
     deletetodo (id, index) {
-      console.log('ini isinya', this.todo)
+      console.log('ini isinya', id)
       var config = {
         headers: {'token': localStorage.getItem('tokenauth')}
       }
       var self = this
-      axios.delete(`http://localhost:3000/todo/${id}`, config)
+      console.log('ini id', id)
+      axios.delete(`http://35.200.25.235/todo/${id}`, config)
       .then(responhapus => {
         console.log('ini resposnhapus', responhapus)
-        console.log('tes', self.todo)
         self.datatodocomponent.splice(index, 1)
       })
       .catch(err => {
@@ -169,8 +173,8 @@ export default {
     console.log('inithis.localStorage', localStorage.tokenauth)
   },
   watch: {
-    id () {
-      this.deletetodo(this.id)
+    datatodocomponent () {
+      this.data
     }
   }
 }

@@ -24,5 +24,6 @@ export default new Router({
       component: register
     }
   ]
+  // ,
   // mode: 'history'
 })
