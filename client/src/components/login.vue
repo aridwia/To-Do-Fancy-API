@@ -34,7 +34,7 @@ export default {
       .then(data => {
         console.log(data)
         localStorage.setItem('tokenauth', data.data.token)
-        this.$router.push('index')
+        this.$router.push('/index')
       })
       .catch(err => {
         console.log(err)
@@ -42,7 +42,11 @@ export default {
     },
     ceklogin () {
       if (localStorage.tokenauth) {
-        this.$router.push('index')
+        if (localStorage.tokenauth === 'undefined') {
+          this.$router.push('/')
+        } else {
+          this.$router.push('/index')
+        }
       } else {
         this.$router.push('/')
       }

@@ -22,7 +22,11 @@ export default {
   methods: {
     ceklogin () {
       if (localStorage.tokenauth) {
-        this.$router.push('index')
+        if (localStorage.tokenauth === 'undefined') {
+          this.$router.push('/')
+        } else {
+          this.$router.push('/index')
+        }
       } else {
         this.$router.push('/')
       }

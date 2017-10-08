@@ -161,17 +161,10 @@ export default {
       .catch(err => {
         console.log(err, 'ini')
       })
-    },
-    ceklogin () {
-      if (localStorage.tokenauth) {
-        this.$router.push('index')
-      } else {
-        this.$router.push('/')
-      }
     }
   },
   created () {
-    this.ceklogin()
+    // this.ceklogin()
     // console.log('inidata', this.datatodocomponent)
     console.log('inithis.localStorage', localStorage.tokenauth)
   },
@@ -209,3 +202,12 @@ export default {
     </div>
   </div>
 </div> -->
+
+<!-- ceklogin () {
+  if (localStorage.tokenauth) {
+    this.$router.push('index')
+  } else {
+    this.$router.push('/')
+  }
+}
+}, -->

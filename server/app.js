@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 var cors = require('cors')
 var FB = require('fb');
 
-mongoose.connect('mongodb://localhost/todafancyapi',(err) => {
+mongoose.connect('mongodb://aridwia:23aridwia@tododb-shard-00-00-w8iqg.mongodb.net:27017,tododb-shard-00-01-w8iqg.mongodb.net:27017,tododb-shard-00-02-w8iqg.mongodb.net:27017/test?ssl=true&replicaSet=todoDB-shard-0&authSource=admin',(err) => {
   if(err){
     console.log(err);
   } else {
